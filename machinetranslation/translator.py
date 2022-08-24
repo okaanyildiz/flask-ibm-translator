@@ -17,7 +17,32 @@ language_translator = LanguageTranslatorV3(
 
 language_translator.set_service_url(url)
 
-translation = language_translator.translate(
-    text='Hello, how are you today?',
-    model_id='en-fr').get_result()
-print(json.dumps(translation, indent=2, ensure_ascii=False))
+
+def english_to_french(english_text: str):
+    """Translates English texts to French"""
+    try:
+        # Translate to French
+        translation = language_translator.translate(
+            text=english_text,
+            model_id='en-fr').get_result()
+        # Get the string
+        french_text = translation['translations'][0]['translation']
+        return french_text
+    except Exception as error:
+        print(error)
+        return None
+
+
+def french_to_english(french_text: str):
+    """Translates French texts to English"""
+    try:
+        # Translate to English
+        translation = language_translator.translate(
+            text=french_text,
+            model_id='fr-en').get_result()
+        # Get the string
+        english_text = translation['translations'][0]['translation']
+        return english_text
+    except Exception as error:
+        print(error)
+        return None
